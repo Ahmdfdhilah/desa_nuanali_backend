@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
-import { ThrottlerExceptionFilter } from './security/throttler-exception.filter';
-import {NestExpressApplication} from "@nestjs/platform-express";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 
 async function bootstrap() {
@@ -11,7 +11,15 @@ async function bootstrap() {
     prefix: '/public/upload/',
   });
   app.use(helmet());
-  app.useGlobalFilters(new ThrottlerExceptionFilter());
+  const options = new DocumentBuilder()
+    .setTitle('Desa Nuniali')
+    .setDescription('API description')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
+
   await app.listen(3000);
 }
 bootstrap();

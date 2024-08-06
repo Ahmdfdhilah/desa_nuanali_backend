@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Agenda {
@@ -11,13 +11,13 @@ export class Agenda {
     @Column({ type: "varchar", length: 255, nullable: false })
     author: string;
 
-    @Column({ type: "date", nullable: false })
+    @Column({ type: "timestamp", nullable: false })
     date: string;
 
     @Column({ type: "varchar", length: 255, nullable: false })
     location: string;
 
-    @Column({ type: "time", nullable: false })
+    @Column({ type: "varchar", nullable: false })
     time: string;
 
     @Column({ type: "varchar", length: 255, nullable: true })
@@ -28,4 +28,10 @@ export class Agenda {
 
     @Column({ type: "text", nullable: true })
     body: string;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
 }

@@ -16,9 +16,9 @@ import { RolesGuard } from 'src/auth/guards/roles.guards';
 export class AgendaController {
     constructor(private readonly agendaService: AgendaService) { }
 
-    @UseGuards(JwtAuthGuard, RolesGuard)
-    @Roles('admin')
-    @Post(':userId')
+    // @UseGuards(JwtAuthGuard, RolesGuard)
+    // @Roles('admin')
+    @Post()
     @UseInterceptors(FileInterceptor('file', fileUploadOptions('agendas')))
     @ApiOperation({ summary: 'Create a new Agenda' })
     @ApiBearerAuth()
@@ -26,8 +26,14 @@ export class AgendaController {
     @ApiBody({
         schema: {
             type: 'object',
-            required: ['file', 'title', 'date'], // Adjust according to required fields
+            required: ['file', 'title', 'date', 'slug'], 
             properties: {
+                slug: {
+                    type: 'string',
+                    format: 'text',
+                    description: 'slug',
+                    example: 'Meeting-with-stakeholders',
+                },
                 title: {
                     type: 'string',
                     format: 'text',
@@ -78,6 +84,8 @@ export class AgendaController {
         @Body() createAgendaDto: CreateAgendaDto,
     ): Promise<Agenda> {
         const imgSrc = getFileUrl('agendas', file);
+        console.log(imgSrc);
+        
         return this.agendaService.create(createAgendaDto,  imgSrc);
     }
 
@@ -96,9 +104,9 @@ export class AgendaController {
         return this.agendaService.findOne(id);
     }
 
-    @UseGuards(JwtAuthGuard, RolesGuard)
-    @Roles('admin')
-    @Put(':id/:userId')
+    // @UseGuards(JwtAuthGuard, RolesGuard)
+    // @Roles('admin')
+    @Put(':id')
     @UseInterceptors(FileInterceptor('file', fileUploadOptions('agendas')))
     @ApiOperation({ summary: 'Update an Agenda by ID' })
     @ApiParam({ name: 'id', description: 'Agenda ID' })
@@ -108,6 +116,12 @@ export class AgendaController {
         schema: {
             type: 'object',
             properties: {
+                slug: {
+                    type: 'string',
+                    format: 'text',
+                    description: 'slug',
+                    example: 'Meeting-with-stakeholders',
+                },
                 title: {
                     type: 'string',
                     format: 'text',
@@ -159,11 +173,13 @@ export class AgendaController {
         @Body() updateAgendaDto: UpdateAgendaDto,
     ): Promise<Agenda> {
         const imgSrc = getFileUrl('agendas', file);
+        console.log(imgSrc);
+        
         return this.agendaService.update(id,  updateAgendaDto, imgSrc);
     }
 
-    @UseGuards(JwtAuthGuard, RolesGuard)
-    @Roles('admin')
+    // @UseGuards(JwtAuthGuard, RolesGuard)
+    // @Roles('admin')
     @Delete(':id')
     @ApiOperation({ summary: 'Delete an Agenda by ID' })
     @ApiParam({ name: 'id', description: 'Agenda ID' })

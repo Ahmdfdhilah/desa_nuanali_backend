@@ -22,7 +22,7 @@ export class AgendaService {
         let newAgenda: Agenda;
 
         await this.entityManager.transaction(async transactionalEntityManager => {
-            const dataAgenda = { ...createAgendaDto, foto: imgSrc };
+            const dataAgenda = { ...createAgendaDto, image: imgSrc };
             newAgenda = await transactionalEntityManager.save(
                 this.agendaRepository.create(dataAgenda),
             );
@@ -52,7 +52,7 @@ export class AgendaService {
 
             const updatedData = {
                 ...updateAgendaDto,
-                foto: imgSrc || agenda.image,
+                image: imgSrc || agenda.image,
             };
 
             Object.assign(agenda, updatedData);
