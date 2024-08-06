@@ -11,6 +11,8 @@ import { StrukturModule } from './struktur/struktur.module';
 import { DanaDesaModule } from './dana-desa/dana-desa.module';
 import { PembangunanModule } from './pembangunan/pembangunan.module';
 import { WilayahModule } from './wilayah/wilayah.module';
+import { PekerjaanModule } from './pekerjaan/pekerjaan.module';
+import { ReligionModule } from './religion/religion.module';
 
 @Module({
     imports: [
@@ -31,6 +33,8 @@ import { WilayahModule } from './wilayah/wilayah.module';
         DanaDesaModule,
         BeritaModule,
         StrukturModule,
+        PekerjaanModule,
+        ReligionModule,
         WilayahModule,
         PembangunanModule,
         SeederModule,
