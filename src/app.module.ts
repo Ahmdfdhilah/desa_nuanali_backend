@@ -8,6 +8,9 @@ import { AuthModule } from './auth/auth.module';
 import { AgendaModule } from './agenda/agenda.module';
 import { BeritaModule } from './berita/berita.module';
 import { StrukturModule } from './struktur/struktur.module';
+import { DanaDesaModule } from './dana-desa/dana-desa.module';
+import { PembangunanModule } from './pembangunan/pembangunan.module';
+import { WilayahModule } from './wilayah/wilayah.module';
 
 @Module({
     imports: [
@@ -25,8 +28,11 @@ import { StrukturModule } from './struktur/struktur.module';
         }),
         UsersModule,
         AgendaModule,
+        DanaDesaModule,
         BeritaModule,
         StrukturModule,
+        WilayahModule,
+        PembangunanModule,
         SeederModule,
         AuthModule,
     ],
