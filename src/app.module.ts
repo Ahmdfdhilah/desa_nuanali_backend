@@ -13,6 +13,7 @@ import { PembangunanModule } from './pembangunan/pembangunan.module';
 import { WilayahModule } from './wilayah/wilayah.module';
 import { PekerjaanModule } from './pekerjaan/pekerjaan.module';
 import { ReligionModule } from './religion/religion.module';
+import { SekolahModule } from './sekolah/sekolah.module';
 
 @Module({
     imports: [
@@ -34,6 +35,7 @@ import { ReligionModule } from './religion/religion.module';
         BeritaModule,
         StrukturModule,
         PekerjaanModule,
+        SekolahModule,
         ReligionModule,
         WilayahModule,
         PembangunanModule,
