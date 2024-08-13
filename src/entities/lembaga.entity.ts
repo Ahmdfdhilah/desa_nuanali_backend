@@ -5,12 +5,15 @@ export class Lembaga {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column({ type: "varchar", length: 255, nullable: false })
+    @Column({ type: 'varchar', length: 255 })
     name: string;
-
-    @Column({ type: "text", nullable: true })
-    desc: string;
-
-    @Column({ type: "varchar", length: 255, nullable: true })
-    foto: string;
+  
+    @Column({ type: 'text' })
+    description: string;
+  
+    @Column({ type: 'varchar', length: 255 })
+    image: string;
+  
+    @Column({ type: 'varchar', length: 20 })
+    contact: string;
 }

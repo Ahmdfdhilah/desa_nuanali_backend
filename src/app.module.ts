@@ -14,6 +14,7 @@ import { WilayahModule } from './wilayah/wilayah.module';
 import { PekerjaanModule } from './pekerjaan/pekerjaan.module';
 import { ReligionModule } from './religion/religion.module';
 import { SekolahModule } from './sekolah/sekolah.module';
+import { LembagaModule } from './lembaga/lembaga.module';
 
 @Module({
     imports: [
@@ -38,6 +39,7 @@ import { SekolahModule } from './sekolah/sekolah.module';
         SekolahModule,
         ReligionModule,
         WilayahModule,
+        LembagaModule,
         PembangunanModule,
         SeederModule,
         AuthModule,
