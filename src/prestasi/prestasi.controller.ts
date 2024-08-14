@@ -29,12 +29,6 @@ export class PrestasiController {
                     description: 'Title of the prestasi',
                     example: 'Achievement Title',
                 },
-                desc: {
-                    type: 'string',
-                    format: 'text',
-                    description: 'Description of the prestasi',
-                    example: 'Description of the achievement...',
-                },
                 file: {
                     type: 'string',
                     format: 'binary',
@@ -82,12 +76,6 @@ export class PrestasiController {
                     format: 'text',
                     description: 'Title of the prestasi',
                     example: 'Updated Achievement Title',
-                },
-                desc: {
-                    type: 'string',
-                    format: 'text',
-                    description: 'Description of the prestasi',
-                    example: 'Updated description of the achievement...',
                 },
                 file: {
                     type: 'string',
