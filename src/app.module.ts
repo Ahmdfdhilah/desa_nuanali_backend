@@ -20,6 +20,11 @@ import { PrestasiModule } from './prestasi/prestasi.module';
 import { LapakModule } from './lapak/lapak.module';
 import { PhotoModule } from './photo/photo.module';
 import { VideoModule } from './video/video.module';
+import { EducationModule } from './education/education.module';
+import { GenderModule } from './gender/gender.module';
+import { StatusModule } from './status/status.module';
+import { UsiaModule } from './usia/usia.module';
+import { BaganModule } from './bagan/bagan.module';
 
 @Module({
     imports: [
@@ -35,12 +40,15 @@ import { VideoModule } from './video/video.module';
             entities: [__dirname + '/**/*.entity{.ts,.js}'],
             synchronize: true
         }),
-        AuthModule,
         AgendaModule,
+        AuthModule,
         BeritaModule,
+        BaganModule,
         DanaDesaModule,
-        LembagaModule,
+        EducationModule,
+        GenderModule,
         LapakModule,
+        LembagaModule,
         PembangunanModule,
         PekerjaanModule,
         PhotoModule,
@@ -48,11 +56,13 @@ import { VideoModule } from './video/video.module';
         ReligionModule,
         SeederModule,
         SekolahModule,
+        StatusModule,
         StrukturModule,
+        UsiaModule,
+        UsersModule,
         VideoModule,
         WilayahModule,
         WisatanModule,
-        UsersModule,        
     ],
     controllers: [],
 })

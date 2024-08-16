@@ -1,11 +1,11 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Gender {
+export class Status {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column({ type: "enum", enum: ["Laki-Laki", "Perempuan"], unique: true, nullable: false })
+    @Column({ type: "enum", enum: ['Menikah', 'Bercerai', 'Belum Menikah'], unique: true, nullable: false })
     name: string;
 
     @Column({ type: "int", nullable: false })

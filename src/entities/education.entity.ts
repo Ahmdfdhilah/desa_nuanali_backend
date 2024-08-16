@@ -5,9 +5,9 @@ export class Education {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column({ type: "varchar", length: 255, nullable: false })
+    @Column({ type: "enum", enum: ['Paud', 'TK', 'SD', 'SMP', 'SMA'], unique: true, nullable: false })
     name: string;
 
-    @Column({ type: "decimal", precision: 10, scale: 2, nullable: false })
+    @Column({ type: "int", nullable: false })
     total: number;
 }
