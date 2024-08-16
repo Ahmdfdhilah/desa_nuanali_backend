@@ -7,9 +7,6 @@ export class Photo {
 
     @Column({ type: "varchar", length: 255, nullable: false })
     src: string;
-
-    @Column({ type: "varchar", length: 255, nullable: true })
-    title: string;
      
     @CreateDateColumn()
     createdAt: Date;

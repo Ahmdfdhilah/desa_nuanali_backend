@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 export const UpdateAgendaDto = z.object({
-    slug: z.string().optional(),
     author: z.string().optional(),
     date: z.string().datetime().optional(),
     location: z.string().optional(),

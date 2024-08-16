@@ -153,6 +153,7 @@ export class WisataController {
         @Param('id') id: string,
         @Query('fotoUrl') fotoUrl: string,
     ): Promise<void> {
+        console.log(fotoUrl);
         return this.wisataService.deleteFoto(id, fotoUrl);
     }
 }

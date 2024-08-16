@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 export const CreateAgendaDto = z.object({
-    slug: z.string().nonempty(),
     author: z.string().nonempty(),
     date: z.string().datetime(),
     location: z.string().nonempty(),

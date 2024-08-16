@@ -1,29 +1,24 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, EntityManager, Like } from 'typeorm';
+import { Repository, EntityManager } from 'typeorm';
 import { Photo } from 'src/entities/photo.entity';
-import { CreatePhotoDto } from './dto/create-photo.dto';
 import { QueryDto } from 'src/lib/query.dto';
 import fs from 'fs';
 import path from 'path';
 
 @Injectable()
 export class PhotoService {
+    private readonly logger = new Logger(PhotoService.name);
+
     constructor(
         @InjectRepository(Photo)
         private readonly photoRepository: Repository<Photo>,
         private readonly entityManager: EntityManager,
-    ) { }
+    ) {}
 
-    private readonly logger = new Logger(PhotoService.name);
-
-    async create(createPhotoDto: CreatePhotoDto, photoSrc?: string): Promise<Photo> {
-        const newPhoto = this.photoRepository.create({
-            ...createPhotoDto,
-            src: photoSrc,
-        });
-
-        return this.photoRepository.save(newPhoto);
+    async create(photoSrcs: string[]): Promise<Photo[]> {
+        const newPhotos = photoSrcs.map(src => this.photoRepository.create({ src }));
+        return this.photoRepository.save(newPhotos);
     }
 
     async findOne(id: string): Promise<Photo | undefined> {
@@ -31,7 +26,7 @@ export class PhotoService {
     }
 
     async findAll(query: QueryDto): Promise<{ data: Photo[], total: number }> {
-        const { limit, page, search, sort, order } = query;
+        const { limit, page, sort, order } = query;
 
         this.logger.log(`Fetching from DB`);
 
@@ -51,22 +46,7 @@ export class PhotoService {
             findOptions.skip = (parseInt(page as any, 10) - 1) * findOptions.take;
         }
 
-        if (search) {
-            findOptions.where = { title: Like(`%${search}%`) };
-        }
-
-        let photos: Photo[];
-        let total: number;
-
-        if (limit && page) {
-            const [result, count] = await this.photoRepository.findAndCount(findOptions);
-            photos = result;
-            total = count;
-        } else {
-            const result = await this.photoRepository.find(findOptions);
-            photos = result;
-            total = result.length;
-        }
+        const [photos, total] = await this.photoRepository.findAndCount(findOptions);
 
         this.logger.log(`DB result - Photo count: ${photos.length}, Total count: ${total}`);
 

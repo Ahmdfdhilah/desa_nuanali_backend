@@ -6,9 +6,6 @@ export class Agenda {
     id: string;
 
     @Column({ type: "varchar", length: 255, nullable: false })
-    slug: string;
-
-    @Column({ type: "varchar", length: 255, nullable: false })
     author: string;
 
     @Column({ type: "timestamp", nullable: false })

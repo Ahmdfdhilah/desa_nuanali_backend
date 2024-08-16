@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param, Delete, Query } from '@nestjs/commo
 import { VideoService } from './video.service';
 import { Video } from '../entities/video.entity';
 import { CreateVideoDto } from './dto/create-video.dto';
+import { QueryDto } from 'src/lib/query.dto'; // Update this import as needed
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('videos')
@@ -36,8 +37,8 @@ export class VideoController {
     @Get()
     @ApiOperation({ summary: 'Get all Videos' })
     @ApiResponse({ status: 200, description: 'Returns all Videos' })
-    async findAll(): Promise<Video[]> {
-        return this.videoService.findAll();
+    async findAll(@Query() query: QueryDto): Promise<{ data: Video[], total: number }> {
+        return this.videoService.findAll(query);
     }
 
     @Get(':id')

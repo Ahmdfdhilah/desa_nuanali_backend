@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+const cors = require('cors');
 const port = process.env.PORT;
 
 async function bootstrap() {
@@ -10,7 +11,7 @@ async function bootstrap() {
   app.useStaticAssets('public/upload/', {
     prefix: '/public/upload/',
   });
-  app.use(helmet());
+  app.use(cors());
   const options = new DocumentBuilder()
     .setTitle('Desa Nuniali')
     .setDescription('API description')
@@ -19,7 +20,9 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
-
+  app.use(helmet({
+    crossOriginResourcePolicy: false
+  }));
   await app.listen(port);
 }
 bootstrap();
