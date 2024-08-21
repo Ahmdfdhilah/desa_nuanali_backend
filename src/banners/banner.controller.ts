@@ -1,0 +1,91 @@
+import { Controller, Get, Post, Body, Param, Delete, Put, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
+import { BannerService } from './banner.service';
+import { Banner } from 'src/entities/banners.entity';
+import { BannerDto } from './dto/banner.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { fileUploadOptions, getFileUrl } from 'src/lib/file-upload.util';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiConsumes } from '@nestjs/swagger';
+
+@Controller('banners')
+@ApiTags('banners')
+export class BannerController {
+    constructor(private readonly bannerService: BannerService) { }
+
+    @Post()
+    @UseInterceptors(FileInterceptor('file', fileUploadOptions('banners')))
+    @ApiOperation({ summary: 'Create a new Banner' })
+    @ApiConsumes('multipart/form-data')
+    @ApiBody({
+        schema: {
+            type: 'object',
+            required: ['file'],
+            properties: {
+                file: {
+                    type: 'string',
+                    format: 'binary',
+                    description: 'File upload',
+                    example: 'file.jpg',
+                },
+                text: {
+                    type: 'string',
+                    description: 'Banner text',
+                    example: 'Welcome to our site!',
+                },
+            },
+        },
+    })
+    async create(
+        @UploadedFile() file: Express.Multer.File,
+        @Body() createBannerDto: BannerDto,
+    ): Promise<Banner> {
+        const imgSrc = getFileUrl('banners', file);
+        return this.bannerService.create(createBannerDto, imgSrc);
+    }
+
+    @Get()
+    @ApiOperation({ summary: 'Get all Banners' })
+    @ApiResponse({ status: 200, description: 'Returns all Banners' })
+    async findAll(): Promise<Banner[]> {
+        return this.bannerService.findAll();
+    }
+
+    @Put('reorder')
+    @ApiOperation({ summary: 'Reorder Banners' })
+    @ApiBody({
+        schema: {
+            type: 'object',
+            required: ['banners'],
+            properties: {
+                banners: {
+                    type: 'array',
+                    items: {
+                        type: 'object',
+                        properties: {
+                            id: { type: 'string' },
+                            order: { type: 'integer' },
+                        },
+                    },
+                },
+            },
+        },
+    })
+    async reorderBanners(@Body('banners') banners: { id: string, order: number }[]): Promise<void> {
+        await this.bannerService.reorderBanners(banners);
+    }
+
+    @Get(':id')
+    @ApiOperation({ summary: 'Get a Banner by ID' })
+    @ApiParam({ name: 'id', description: 'Banner ID' })
+    @ApiResponse({ status: 200, description: 'Returns the Banner' })
+    async findOne(@Param('id') id: string): Promise<Banner> {
+        return this.bannerService.findOne(id);
+    }
+
+    @Delete(':id')
+    @ApiOperation({ summary: 'Delete a Banner by ID' })
+    @ApiParam({ name: 'id', description: 'Banner ID' })
+    @ApiResponse({ status: 204, description: 'Banner successfully deleted' })
+    async remove(@Param('id') id: string): Promise<void> {
+        await this.bannerService.remove(id);
+    }
+}

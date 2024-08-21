@@ -25,6 +25,7 @@ import { GenderModule } from './gender/gender.module';
 import { StatusModule } from './status/status.module';
 import { UsiaModule } from './usia/usia.module';
 import { BaganModule } from './bagan/bagan.module';
+import { BannerModule } from './banners/banner.module';
 
 @Module({
     imports: [
@@ -47,6 +48,7 @@ import { BaganModule } from './bagan/bagan.module';
         DanaDesaModule,
         EducationModule,
         GenderModule,
+        BannerModule,
         LapakModule,
         LembagaModule,
         PembangunanModule,
