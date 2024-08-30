@@ -39,7 +39,7 @@ import { BannerModule } from './banners/banner.module';
             database: process.env.DB_NAME,
             password: process.env.DB_PASSWORD,
             entities: [__dirname + '/**/*.entity{.ts,.js}'],
-            synchronize: true
+            synchronize: false
         }),
         AgendaModule,
         AuthModule,
