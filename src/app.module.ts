@@ -30,7 +30,6 @@ import { BannerModule } from './banners/banner.module';
 @Module({
     imports: [
         ConfigModule.forRoot(),
-
         TypeOrmModule.forRoot({
             type: 'mysql',
             host: process.env.DB_HOST,
