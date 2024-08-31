@@ -12,6 +12,9 @@ async function bootstrap() {
     prefix: '/public/upload/',
   });
   app.use(cors());
+  app.enableCors({
+    origin: '*',
+  });
   const options = new DocumentBuilder()
     .setTitle('Desa Nuniali')
     .setDescription('API description')
